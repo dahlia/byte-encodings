@@ -1,6 +1,6 @@
 {
   "name": "byte-encodings",
-  "version": "1.0.10",
+  "version": "1.0.11",
   "description": "Utilities for encoding and decoding common formats like hex, base64, and varint. Ported from Deno's @std/encoding.",
   "keywords": [
     "encoding",
@@ -16,6 +16,13 @@
     "name": "Deno authors",
     "url": "https://deno.com/"
   },
+  "maintainers": [
+    {
+      "name": "Hong Minhee",
+      "email": "hong@minhee.org",
+      "url": "https://hongminhee.org/"
+    }
+  ],
   "homepage": "https://github.com/dahlia/byte-encodings",
   "repository": {
     "type": "git",
@@ -26,149 +33,82 @@
     "url": "https://github.com/dahlia/byte-encodings/issues"
   },
   "type": "module",
+  "files": [
+    "dist"
+  ],
   "main": "./dist/mod.cjs",
   "module": "./dist/mod.js",
   "types": "./dist/mod.d.ts",
   "exports": {
     ".": {
-      "import": {
-        "types": "./dist/mod.d.ts",
-        "default": "./dist/mod.js"
-      },
-      "require": {
-        "types": "./dist/mod.d.cts",
-        "default": "./dist/mod.cjs"
-      }
+      "types": "./dist/mod.d.ts",
+      "import": "./dist/mod.js",
+      "require": "./dist/mod.cjs"
     },
     "./ascii85": {
-      "import": {
-        "types": "./dist/ascii85.d.ts",
-        "default": "./dist/ascii85.js"
-      },
-      "require": {
-        "types": "./dist/ascii85.d.cts",
-        "default": "./dist/ascii85.cjs"
-      }
+      "types": "./dist/ascii85.d.ts",
+      "import": "./dist/ascii85.js",
+      "require": "./dist/ascii85.cjs"
     },
     "./base32": {
-      "import": {
-        "types": "./dist/base32.d.ts",
-        "default": "./dist/base32.js"
-      },
-      "require": {
-        "types": "./dist/base32.d.cts",
-        "default": "./dist/base32.cjs"
-      }
+      "types": "./dist/base32.d.ts",
+      "import": "./dist/base32.js",
+      "require": "./dist/base32.cjs"
     },
     "./unstable-base32": {
-      "import": {
-        "types": "./dist/unstable_base32.d.ts",
-        "default": "./dist/unstable_base32.js"
-      },
-      "require": {
-        "types": "./dist/unstable_base32.d.cts",
-        "default": "./dist/unstable_base32.cjs"
-      }
+      "types": "./dist/unstable_base32.d.ts",
+      "import": "./dist/unstable_base32.js",
+      "require": "./dist/unstable_base32.cjs"
     },
     "./unstable-base32-stream": {
-      "import": {
-        "types": "./dist/unstable_base32_stream.d.ts",
-        "default": "./dist/unstable_base32_stream.js"
-      },
-      "require": {
-        "types": "./dist/unstable_base32_stream.d.cts",
-        "default": "./dist/unstable_base32_stream.cjs"
-      }
+      "types": "./dist/unstable_base32_stream.d.ts",
+      "import": "./dist/unstable_base32_stream.js",
+      "require": "./dist/unstable_base32_stream.cjs"
     },
     "./base58": {
-      "import": {
-        "types": "./dist/base58.d.ts",
-        "default": "./dist/base58.js"
-      },
-      "require": {
-        "types": "./dist/base58.d.cts",
-        "default": "./dist/base58.cjs"
-      }
+      "types": "./dist/base58.d.ts",
+      "import": "./dist/base58.js",
+      "require": "./dist/base58.cjs"
     },
     "./base64": {
-      "import": {
-        "types": "./dist/base64.d.ts",
-        "default": "./dist/base64.js"
-      },
-      "require": {
-        "types": "./dist/base64.d.cts",
-        "default": "./dist/base64.cjs"
-      }
+      "types": "./dist/base64.d.ts",
+      "import": "./dist/base64.js",
+      "require": "./dist/base64.cjs"
     },
     "./unstable-base64": {
-      "import": {
-        "types": "./dist/unstable_base64.d.ts",
-        "default": "./dist/unstable_base64.js"
-      },
-      "require": {
-        "types": "./dist/unstable_base64.d.cts",
-        "default": "./dist/unstable_base64.cjs"
-      }
+      "types": "./dist/unstable_base64.d.ts",
+      "import": "./dist/unstable_base64.js",
+      "require": "./dist/unstable_base64.cjs"
     },
     "./unstable-base64-stream": {
-      "import": {
-        "types": "./dist/unstable_base64_stream.d.ts",
-        "default": "./dist/unstable_base64_stream.js"
-      },
-      "require": {
-        "types": "./dist/unstable_base64_stream.d.cts",
-        "default": "./dist/unstable_base64_stream.cjs"
-      }
+      "types": "./dist/unstable_base64_stream.d.ts",
+      "import": "./dist/unstable_base64_stream.js",
+      "require": "./dist/unstable_base64_stream.cjs"
     },
     "./base64url": {
-      "import": {
-        "types": "./dist/base64url.d.ts",
-        "default": "./dist/base64url.js"
-      },
-      "require": {
-        "types": "./dist/base64url.d.cts",
-        "default": "./dist/base64url.cjs"
-      }
+      "types": "./dist/base64url.d.ts",
+      "import": "./dist/base64url.js",
+      "require": "./dist/base64url.cjs"
     },
     "./hex": {
-      "import": {
-        "types": "./dist/hex.d.ts",
-        "default": "./dist/hex.js"
-      },
-      "require": {
-        "types": "./dist/hex.d.cts",
-        "default": "./dist/hex.cjs"
-      }
+      "types": "./dist/hex.d.ts",
+      "import": "./dist/hex.js",
+      "require": "./dist/hex.cjs"
     },
     "./unstable-hex": {
-      "import": {
-        "types": "./dist/unstable_hex.d.ts",
-        "default": "./dist/unstable_hex.js"
-      },
-      "require": {
-        "types": "./dist/unstable_hex.d.cts",
-        "default": "./dist/unstable_hex.cjs"
-      }
+      "types": "./dist/unstable_hex.d.ts",
+      "import": "./dist/unstable_hex.js",
+      "require": "./dist/unstable_hex.cjs"
     },
     "./unstable-hex-stream": {
-      "import": {
-        "types": "./dist/unstable_hex_stream.d.ts",
-        "default": "./dist/unstable_hex_stream.js"
-      },
-      "require": {
-        "types": "./dist/unstable_hex_stream.d.cts",
-        "default": "./dist/unstable_hex_stream.cjs"
-      }
+      "types": "./dist/unstable_hex_stream.d.ts",
+      "import": "./dist/unstable_hex_stream.js",
+      "require": "./dist/unstable_hex_stream.cjs"
     },
     "./varint": {
-      "import": {
-        "types": "./dist/varint.d.ts",
-        "default": "./dist/varint.js"
-      },
-      "require": {
-        "types": "./dist/varint.d.cts",
-        "default": "./dist/varint.cjs"
-      }
+      "types": "./dist/varint.d.ts",
+      "import": "./dist/varint.js",
+      "require": "./dist/varint.cjs"
     }
   },
   "devDependencies": {
