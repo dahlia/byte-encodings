@@ -3,6 +3,9 @@
 byte-encodings
 ==============
 
+[![npm][npm badge]][npm]
+[![GitHub Actions][GitHub Actions badge]][GitHub Actions]
+
 This package is a port of Deno's [@std/encoding], which provides utilities for
 encoding and decoding common formats like:
 
@@ -41,6 +44,10 @@ For your information, this package offers these *unstable* modules too:
 Since the APIs are identical to *@std/encoding*, for the complete API references,
 see the [docs on *@std/encoding*'s JSR][@std/encoding].
 
+[npm]: https://www.npmjs.com/package/byte-encodings
+[npm badge]: https://img.shields.io/npm/v/byte-encodings?logo=npm
+[GitHub Actions]: https://github.com/dahlia/byte-encodings/actions/workflows/main.yaml
+[GitHub Actions badge]: https://github.com/dahlia/byte-encodings/actions/workflows/main.yaml/badge.svg
 [@std/encoding]: https://jsr.io/@std/encoding
 [`Uint8Array`]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Uint8Array
 [`ArrayBuffer`]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/ArrayBuffer
