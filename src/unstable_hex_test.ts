@@ -1,5 +1,6 @@
 // Copyright 2018-2025 the Deno authors. MIT license.
 
+import { test } from "vitest";
 import { assertEquals, assertThrows } from "@std/assert";
 import { concat } from "@std/bytes";
 import {
@@ -18,13 +19,13 @@ const inputOutput: [string | ArrayBuffer, string][] = [
   [new Uint8Array(2).fill("Z".charCodeAt(0)).buffer, "5a5a"],
 ];
 
-Deno.test("encodeHex()", () => {
+test("encodeHex()", () => {
   for (const [input, hex] of inputOutput) {
     assertEquals(encodeHex(input.slice(0)), hex);
   }
 });
 
-Deno.test("encodeHex() subarray", () => {
+test("encodeHex() subarray", () => {
   for (const [input, output] of inputOutput) {
     if (typeof input === "string") continue;
 
@@ -38,7 +39,7 @@ Deno.test("encodeHex() subarray", () => {
   }
 });
 
-Deno.test("encodeHexInto()", () => {
+test("encodeHexInto()", () => {
   const prefix = new TextEncoder().encode("data:fake/url,");
   for (const [input, output] of inputOutput) {
     if (typeof input === "string") continue;
@@ -56,7 +57,7 @@ Deno.test("encodeHexInto()", () => {
   }
 });
 
-Deno.test("encodeHexInto() with too small buffer", () => {
+test("encodeHexInto() with too small buffer", () => {
   const prefix = new TextEncoder().encode("data:fake/url,");
   for (const [input] of inputOutput) {
     if (typeof input === "string" || input.byteLength === 0) continue;
@@ -79,7 +80,7 @@ Deno.test("encodeHexInto() with too small buffer", () => {
   }
 });
 
-Deno.test("decodeHex()", () => {
+test("decodeHex()", () => {
   for (const [input, output] of inputOutput) {
     if (input instanceof ArrayBuffer) continue;
 
@@ -87,7 +88,7 @@ Deno.test("decodeHex()", () => {
   }
 });
 
-Deno.test("decodeHex() invalid length", () => {
+test("decodeHex() invalid length", () => {
   for (const [input, output] of inputOutput) {
     if (input instanceof ArrayBuffer) continue;
 
@@ -101,7 +102,7 @@ Deno.test("decodeHex() invalid length", () => {
   }
 });
 
-Deno.test("decodeHex() invalid char", () => {
+test("decodeHex() invalid char", () => {
   for (const [input, output] of inputOutput) {
     if (input instanceof ArrayBuffer) continue;
 
@@ -113,7 +114,7 @@ Deno.test("decodeHex() invalid char", () => {
   }
 });
 
-Deno.test("decodeHex() throws with invalid byte >= 128", () => {
+test("decodeHex() throws with invalid byte >= 128", () => {
   const input = new TextDecoder().decode(new Uint8Array(2).fill(200));
   assertThrows(
     () => decodeHex(input),

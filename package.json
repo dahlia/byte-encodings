@@ -172,13 +172,23 @@
     }
   },
   "devDependencies": {
+    "@std/assert": "jsr:^1.0.13",
+    "@std/bytes": "jsr:^1.0.6",
+    "@std/streams": "jsr:^1.0.9",
+    "@types/node": "^22.15.21",
+    "deno": "^2.3.3",
     "tsup": "^8.5.0",
-    "typescript": "^5.8.3"
+    "typescript": "^5.8.3",
+    "vitest": "^3.1.4"
   },
   "scripts": {
     "build": "tsup",
     "build:watch": "tsup --watch",
     "prepack": "tsup",
-    "prepublish": "tsup"
+    "prepublish": "tsup",
+    "test": "vitest",
+    "format": "deno fmt",
+    "format:watch": "deno fmt --watch",
+    "dev": "concurrently \"tsup --watch\" \"deno fmt --watch\""
   }
 }

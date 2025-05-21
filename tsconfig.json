@@ -3,6 +3,8 @@
     "lib": ["DOM", "ES2021"],
     "declaration": true,
     "emitDeclarationOnly": true,
-    "allowImportingTsExtensions": true
+    "allowImportingTsExtensions": true,
+    "module": "NodeNext",
+    "moduleResolution": "nodenext"
   }
 }

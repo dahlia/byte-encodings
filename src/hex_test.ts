@@ -5,7 +5,7 @@
 // license that can be found in the LICENSE file.
 // Copyright 2018-2025 the Deno authors. MIT license.
 import { assertEquals, assertThrows } from "@std/assert";
-
+import { test } from "vitest";
 import { decodeHex, encodeHex } from "./hex.ts";
 
 const testCases = [
@@ -47,7 +47,7 @@ const errCases: [string, ErrorConstructor, string][] = [
   ],
 ];
 
-Deno.test("encodeHex() handles string", () => {
+test("encodeHex() handles string", () => {
   {
     const srcStr = "abc";
     const dest = encodeHex(srcStr);
@@ -62,7 +62,7 @@ Deno.test("encodeHex() handles string", () => {
   }
 });
 
-Deno.test("decodeHex() handles hex", () => {
+test("decodeHex() handles hex", () => {
   // Case for decoding uppercase hex characters, since
   // Encode always uses lowercase.
   const extraTestcase: [string, number[]][] = [
@@ -77,7 +77,7 @@ Deno.test("decodeHex() handles hex", () => {
   }
 });
 
-Deno.test("decodeHex() throws on invalid input", () => {
+test("decodeHex() throws on invalid input", () => {
   for (const [input, expectedErr, msg] of errCases) {
     assertThrows(
       () => decodeHex(input),

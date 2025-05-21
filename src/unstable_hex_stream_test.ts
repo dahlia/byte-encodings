@@ -4,57 +4,78 @@ import { assertEquals } from "@std/assert";
 import { toText } from "@std/streams";
 import { toBytes } from "@std/streams/unstable-to-bytes";
 import { FixedChunkStream } from "@std/streams/unstable-fixed-chunk-stream";
+import { open, readFile } from "node:fs/promises";
+import { Readable } from "node:stream";
+import { test } from "vitest";
 import { encodeHex } from "./unstable_hex.ts";
 import { HexDecoderStream, HexEncoderStream } from "./unstable_hex_stream.ts";
 
-Deno.test("HexEncoderStream() with normal format", async () => {
-  const readable = (await Deno.open("./deno.lock"))
-    .readable
+test("HexEncoderStream() with normal format", async () => {
+  const fd = await open("./pnpm-lock.yaml");
+  const readable = Readable.toWeb(fd.createReadStream())
+    // @ts-ignore: they are compatible at runtime
     .pipeThrough(new FixedChunkStream(1021))
+    // @ts-ignore: they are compatible at runtime
     .pipeThrough(new HexEncoderStream({ output: "string" }));
 
   assertEquals(
     await toText(readable),
-    encodeHex(await Deno.readFile("./deno.lock")),
+    encodeHex(new Uint8Array(await readFile("./pnpm-lock.yaml"))),
   );
 });
 
-Deno.test("HexEncoderStream() with raw format", async () => {
-  const readable = (await Deno.open("./deno.lock"))
-    .readable
+test("HexEncoderStream() with raw format", async () => {
+  const fd = await open("./pnpm-lock.yaml");
+  const readable = Readable.toWeb(fd.createReadStream())
+    // @ts-ignore: they are compatible at runtime
     .pipeThrough(new FixedChunkStream(1021))
+    // @ts-ignore: they are compatible at runtime
     .pipeThrough(new HexEncoderStream({ output: "bytes" }));
 
   assertEquals(
+    // @ts-ignore: they are compatible at runtime
     await toBytes(readable),
-    new TextEncoder().encode(encodeHex(await Deno.readFile("./deno.lock"))),
+    new TextEncoder().encode(
+      encodeHex(new Uint8Array(await readFile("./pnpm-lock.yaml"))),
+    ),
   );
 });
 
-Deno.test("HexDecoderStream() with normal format", async () => {
-  const readable = (await Deno.open("./deno.lock"))
-    .readable
+test("HexDecoderStream() with normal format", async () => {
+  const fd = await open("./pnpm-lock.yaml");
+  const readable = Readable.toWeb(fd.createReadStream())
+    // @ts-ignore: they are compatible at runtime
     .pipeThrough(new HexEncoderStream({ output: "string" }))
+    // @ts-ignore: they are compatible at runtime
     .pipeThrough(new TextEncoderStream())
+    // @ts-ignore: they are compatible at runtime
     .pipeThrough(new FixedChunkStream(1021))
+    // @ts-ignore: they are compatible at runtime
     .pipeThrough(new TextDecoderStream())
+    // @ts-ignore: they are compatible at runtime
     .pipeThrough(new HexDecoderStream({ input: "string" }));
 
   assertEquals(
+    // @ts-ignore: they are compatible at runtime
     await toBytes(readable),
-    await Deno.readFile("./deno.lock"),
+    new Uint8Array(await readFile("./pnpm-lock.yaml")),
   );
 });
 
-Deno.test("HexDecoderStream() with raw format", async () => {
-  const readable = (await Deno.open("./deno.lock"))
-    .readable
+test("HexDecoderStream() with raw format", async () => {
+  const fd = await open("./pnpm-lock.yaml");
+  const readable = Readable.toWeb(fd.createReadStream())
+    // @ts-ignore: they are compatible at runtime
     .pipeThrough(new HexEncoderStream({ output: "bytes" }))
+    // @ts-ignore: they are compatible at runtime
     .pipeThrough(new FixedChunkStream(1021))
+    // @ts-ignore: they are compatible at runtime
     .pipeThrough(new HexDecoderStream({ input: "bytes" }));
 
+  // @ts-ignore: they are compatible at runtime
   assertEquals(
+    // @ts-ignore: they are compatible at runtime
     await toBytes(readable),
-    await Deno.readFile("./deno.lock"),
+    new Uint8Array(await readFile("./pnpm-lock.yaml")),
   );
 });

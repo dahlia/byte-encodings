@@ -1,9 +1,10 @@
 // Copyright 2018-2025 the Deno authors. MIT license.
 
 import { assertEquals, assertThrows } from "@std/assert";
+import { test } from "vitest";
 import { validateBinaryLike } from "./_validate_binary_like.ts";
 
-Deno.test("validateBinaryLike()", () => {
+test("validateBinaryLike()", () => {
   assertEquals(validateBinaryLike("hello"), new TextEncoder().encode("hello"));
   assertEquals(
     validateBinaryLike(new Uint8Array([1, 2, 3])),
@@ -15,7 +16,7 @@ Deno.test("validateBinaryLike()", () => {
   );
 });
 
-Deno.test("validateBinaryLike() throws on invalid inputs", () => {
+test("validateBinaryLike() throws on invalid inputs", () => {
   assertThrows(
     () => {
       validateBinaryLike(1);

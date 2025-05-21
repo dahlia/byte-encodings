@@ -1,6 +1,7 @@
 // Copyright 2018-2025 the Deno authors. MIT license.
 
 import { assertEquals, assertThrows } from "@std/assert";
+import { test } from "vitest";
 import { decodeBase58, encodeBase58 } from "./base58.ts";
 
 const testSetString = [
@@ -39,32 +40,32 @@ const testSetBinary = testSetString.map(([data, b58]) => {
   return [data, b58];
 }) as Array<[Uint8Array, string]>;
 
-Deno.test("encodeBase58() encodes string", () => {
+test("encodeBase58() encodes string", () => {
   for (const [input, output] of testSetString) {
     assertEquals(encodeBase58(input), output);
   }
 });
 
-Deno.test("encodeBase58() encodes binary", () => {
+test("encodeBase58() encodes binary", () => {
   for (const [input, output] of testSetBinary) {
     assertEquals(encodeBase58(input), output);
   }
 });
 
-Deno.test("encodeBase58() encodes binary buffer", () => {
+test("encodeBase58() encodes binary buffer", () => {
   for (const [input, output] of testSetBinary) {
     assertEquals(encodeBase58(input.buffer as ArrayBuffer), output);
   }
 });
 
-Deno.test("decodeBase58() decodes binary", () => {
+test("decodeBase58() decodes binary", () => {
   for (const [input, output] of testSetBinary) {
     const outputBinary = decodeBase58(output);
     assertEquals(outputBinary, input);
   }
 });
 
-Deno.test("decodeBase58() throws on invalid input", () => {
+test("decodeBase58() throws on invalid input", () => {
   assertThrows(
     () => decodeBase58("+2NEpo7TZRRrLZSi2U"),
     TypeError,

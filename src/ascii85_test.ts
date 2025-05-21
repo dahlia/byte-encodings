@@ -1,5 +1,6 @@
 // Copyright 2018-2025 the Deno authors. MIT license.
 import { assertEquals } from "@std/assert";
+import { test } from "vitest";
 import {
   type Ascii85Standard,
   decodeAscii85,
@@ -122,9 +123,9 @@ const testCasesDelimiter: TestCases = {
 
 for (const [standard, tests] of Object.entries(testCasesNoDelimiter)) {
   if (tests === undefined) continue;
-  Deno.test({
-    name: `encodeAscii85() encode ${standard}`,
-    fn() {
+  test(
+    `encodeAscii85() encode ${standard}`,
+    () => {
       for (const [bin, b85] of tests) {
         assertEquals(
           encodeAscii85(bin as string, {
@@ -134,11 +135,11 @@ for (const [standard, tests] of Object.entries(testCasesNoDelimiter)) {
         );
       }
     },
-  });
+  );
 
-  Deno.test({
-    name: `decodeAscii85() decode ${standard}`,
-    fn() {
+  test(
+    `decodeAscii85() decode ${standard}`,
+    () => {
       for (const [bin, b85] of tests) {
         assertEquals(
           decodeAscii85(b85 as string, {
@@ -148,13 +149,13 @@ for (const [standard, tests] of Object.entries(testCasesNoDelimiter)) {
         );
       }
     },
-  });
+  );
 }
 for (const [standard, tests] of Object.entries(testCasesDelimiter)) {
   if (tests === undefined) continue;
-  Deno.test({
-    name: `encodeAscii85() encodes ${standard} with delimiter`,
-    fn() {
+  test(
+    `encodeAscii85() encodes ${standard} with delimiter`,
+    () => {
       for (const [bin, b85] of tests) {
         assertEquals(
           encodeAscii85(bin as string, {
@@ -165,11 +166,11 @@ for (const [standard, tests] of Object.entries(testCasesDelimiter)) {
         );
       }
     },
-  });
+  );
 
-  Deno.test({
-    name: `decodeAscii85() decodes ${standard} with delimiter`,
-    fn() {
+  test(
+    `decodeAscii85() decodes ${standard} with delimiter`,
+    () => {
       for (const [bin, b85] of tests) {
         assertEquals(
           decodeAscii85(b85 as string, {
@@ -179,12 +180,12 @@ for (const [standard, tests] of Object.entries(testCasesDelimiter)) {
         );
       }
     },
-  });
+  );
 }
 
-Deno.test({
-  name: `encodeAscii85() encodes subarray of an Uint8Array`,
-  fn() {
+test(
+  `encodeAscii85() encodes subarray of an Uint8Array`,
+  () => {
     const data1 = new Uint8Array([0x73, 0x70, 0x61, 0x6d]);
     const data2 = new Uint8Array(
       [0x01, 0x02, 0x03, 0x04, 0x73, 0x70, 0x61, 0x6d],
@@ -196,11 +197,11 @@ Deno.test({
     assertEquals(encoded1, "F)YQ)");
     assertEquals(encoded2, "F)YQ)");
   },
-});
+);
 
-Deno.test({
-  name: `decodeAscii85() decodes with default standard`,
-  fn() {
+test(
+  `decodeAscii85() decodes with default standard`,
+  () => {
     const tests = [
       ["<~FCfN8Bl7P~>", "testing"],
       ["<~A7]XsCgh3l~>", "denoland"],
@@ -214,4 +215,4 @@ Deno.test({
       );
     }
   },
-});
+);
