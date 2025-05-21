@@ -1,50 +1,44 @@
-# Deno Standard Library
+byte-encodings
+==============
 
-[![JSR @std](https://jsr.io/badges/@std)](https://jsr.io/@std)
-[![codecov](https://codecov.io/gh/denoland/std/branch/main/graph/badge.svg?token=w6s3ODtULz)](https://codecov.io/gh/denoland/std)
-[![ci](https://github.com/denoland/std/actions/workflows/ci.yml/badge.svg)](https://github.com/denoland/std/actions/workflows/ci.yml)
+This package is a port of Deno's [@std/encoding], which provides utilities for
+encoding and decoding common formats like:
 
-High-quality APIs for [Deno](https://deno.com/) and the web. Use fearlessly.
+ -  ascii85 (Adobe, btoa, RFC 1924, Z85)
+ -  base32
+ -  base58
+ -  base64
+ -  base64url
+ -  hex
+ -  varint
 
-> [!IMPORTANT]
-> Newer versions of the Standard Library are now hosted on
-> [JSR](https://jsr.io/@std). Older versions up till 0.224.0 are still available
-> at [deno.land/std](https://deno.land/std).
+Note that every encoder takes [`Uint8Array`] or [`ArrayBuffer`], and every decoder
+returns [`Uint8Array`].
 
-## Resources
+Here's the overview of the APIs that this package offers:
 
-- [Package list](https://jsr.io/@std)
-- [Architecture guide](./.github/ARCHITECTURE.md)
-- [Design documentation](.github/ARCHITECTURE.md#design)
-- [Contributing guidelines](.github/CONTRIBUTING.md)
-- [Frequently asked questions (FAQ)](./.github/FAQ.md)
-- [Test coverage explorer](https://std-coverage.deno.dev/)
+~~~~ typescript
+import { encodeAscii85,    decodeAscii85   } from "byte-encodings/ascii85"
+import { encodeBase32,     decodeBase32    } from "byte-encodings/base32"
+import { encodeBase58,     decodeBase58    } from "byte-encodings/base58"
+import { encodeBase64,     decodeBase64    } from "byte-encodings/base64"
+import { encodeBase64Url,  decodeBase64Url } from "byte-encodings/base64url"
+import { encodeHex,        decodeHex       } from "byte-encodings/hex"
+import { encodeVarint, decodeVarint, decodeVarint32 } from "byte-encodings/varint"
+~~~~
 
-## Releases
+For your information, this package offers these *unstable* modules too:
 
-Package versions >=1.0.0 follow [Semantic Versioning](https://semver.org/), and
-package versions <1.0.0 follow
-[this proposal](https://github.com/semver/semver/pull/923).
+ -  `byte-encodings/unstable-base32`
+ -  `byte-encodings/unstable-base32-stream`
+ -  `byte-encodings/unstable-base64`
+ -  `byte-encodings/unstable-base64-stream`
+ -  `byte-encodings/unstable-hex`
+ -  `byte-encodings/unstable-hex-stream`
 
-## Badge
+Since the APIs are identical to *@std/encoding*, for the complete API references,
+see the [docs on *@std/encoding*'s JSR][@std/encoding].
 
-> [!NOTE]
-> Previously, this repo hosted the badge SVG file. Now, the badge is retrieved
-> directly from [Shields.io](https://shields.io/).
-
-[![Built with the Deno Standard Library](https://img.shields.io/badge/Built_with_std-blue?logo=deno)](https://jsr.io/@std)
-
-```html
-<a href="https://jsr.io/@std">
-  <img
-    width="135"
-    height="20"
-    src="https://img.shields.io/badge/Built_with_std-blue?logo=deno"
-    alt="Built with the Deno Standard Library"
-  />
-</a>
-```
-
-```md
-[![Built with the Deno Standard Library](https://img.shields.io/badge/Built_with_std-blue?logo=deno)](https://jsr.io/@std)
-```
+[@std/encoding]: https://jsr.io/@std/encoding
+[`Uint8Array`]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Uint8Array
+[`ArrayBuffer`]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/ArrayBuffer
