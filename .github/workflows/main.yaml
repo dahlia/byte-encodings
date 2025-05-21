@@ -1,0 +1,56 @@
+# deno-fmt-ignore-file
+name: main
+on: [push, pull_request]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+    - uses: pnpm/action-setup@v4
+      with:
+        version: 10
+    - uses: actions/setup-node@v4
+      with:
+        node-version: 22
+        cache: pnpm
+    - run: pnpm install-test
+
+  publish:
+    if: github.event_name == 'push'
+    needs: [test]
+    runs-on: ubuntu-latest
+    permissions:
+      id-token: write
+      contents: write
+    steps:
+    - uses: actions/checkout@v4
+    - uses: pnpm/action-setup@v4
+      with:
+        version: 10
+    - uses: actions/setup-node@v4
+      with:
+        node-version: 22
+        cache: pnpm
+    - if: github.ref_type == 'branch'
+      run: |
+        jq \
+          --arg build "$GITHUB_RUN_NUMBER" \
+          --arg commit "${GITHUB_SHA::8}" \
+          '.version = .version + "-dev." + $build + "+" + $commit' \
+          package.json > package.json.tmp
+        mv package.json.tmp package.json
+    - if: github.ref_type == 'tag'
+      run: '[[ "$(jq -r .version package.json)" = "$GITHUB_REF_NAME" ]]'
+    - run: pnpm install
+    - run: pnpm pack
+    - run: |
+        set -ex
+        npm config set //registry.npmjs.org/:_authToken "$NPM_AUTH_TOKEN"
+        if [[ "$GITHUB_REF_TYPE" = "tag" ]]; then
+          npm publish --provenance --access public *.tgz
+        else
+          npm publish --provenance --access public --tag dev *.tgz
+        fi
+      env:
+        NPM_AUTH_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}
